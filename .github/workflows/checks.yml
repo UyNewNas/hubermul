@@ -34,6 +34,8 @@ jobs:
           python -c 'import torch; from hubermul import huber_mul; assert huber_mul(torch.tensor(1.), torch.tensor(1.)).item() == 1.'
       - name: Paired smoke experiment
         run: python -m experiments.run --config experiments/configs/smoke.toml --output runs/ci-smoke
+      - name: Contractive task smoke (no training)
+        run: python -m experiments.contractive --config experiments/configs/contractive.toml --output runs/ci-contractive --smoke
       - name: Keep experiment records even on failure
         if: always()
         uses: actions/upload-artifact@v4

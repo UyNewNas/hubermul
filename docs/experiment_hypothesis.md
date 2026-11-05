@@ -81,3 +81,55 @@ near-zero-error handling, and the total compute budget BEFORE that next run.
 Three possible conclusions: useful effect supported; target benefit excluded or
 cost unacceptable; evidence insufficient. Budget exhaustion can stop work without
 claiming that the method has been proved useless. No E6/E7 expansion without evidence.
+
+## Frozen follow-up: domain-exact contractive residual map (2026-11-05)
+
+The original regression screen is retained, not retuned. This separate **no-training**
+experiment tests an algorithmic task, not real-world demand or a learned-model gain.
+
+For R=1, unit v and q in {0.5,0.8,0.95}, define
+F(z)=z+(q/R)*v*op(z). Legal z lies in the closed diamond D_R.
+Controls: ordinary multiplication (no global certificate), HuberMul, and the product
+of the coordinates of the Euclidean projection P_D(z). Projection is NOT radial
+normalization. Both protected maps equal the same bilinear map on D_R and their
+residual branches have global Lipschitz bound q. Projection is nonexpansive; the
+product on D_R has constant R. Fixed-point inversion is z_next=w-g(z).
+The real-arithmetic certificate is ||z-z*|| <= ||F(z)-w||/(1-q).
+This floating-point experiment is NOT an interval-verified error certificate.
+
+Generate targets independently using ordinary multiplication on known legal inputs.
+Use seeds 101,202,303, 128 area-uniform diamond samples per seed plus ten fixed
+anchors (including axes, boundary corners, midpoint seams and (0.45,0.45)).
+Use normalized directions (1,0),(1,1),(1,-1), all q values, and starts w,0,
+(10R,10R),(-10R,-10R),(10R,-10R). All methods receive identical cases.
+CPU float64, one thread. Stop at residual <= (1-q)*1e-10*R, max 2000 updates,
+or state component > 1e100*R / nonfinite. Separate solver convergence from recovering
+known z*: ordinary multiplication can converge to a different preimage.
+All cases, failures, residuals, recovered states and iteration counts remain in CSV.
+Recovery/certificate diagnostic comparisons allow documented float64 rounding slack;
+raw errors and raw mathematical bounds are saved without hiding violations.
+
+Primary feasibility: protected methods recover every legal preimage in this fixed
+suite within budget; numerical checks support, but do not prove, the analytic theorem.
+Comparative usefulness: paired iteration counts and forward / forward+backward CPU
+cost against **equally certified projection multiplication**. Timing is local,
+thread-fixed, randomized method order, warmup/repeated Timer measurements, three
+replicates for batch sizes 1,1024,65536 in legal and out-of-domain workloads.
+Timed statements isolate operator work, NOT data generation or fixed-point-loop Python.
+No assertion of GPU performance, optimal implementation, or training advantage.
+Boundary diagnostic: directional derivative on z(t)=(R/2+t,R/2+t), offsets
+1e-2,1e-4,1e-6. HuberMul's C1 property is predicted; projection has a kink.
+It is NOT retroactively made a task requirement or a superiority outcome.
+
+Decision: no further development if HuberMul offers neither a supported iteration/
+cost advantage nor an independently established need for continuous Jacobians.
+A numerical advantage would justify only independent validation, not a new general
+claim. Equal feasibility alone does not establish an advantage. Keep the reference
+library and results if these checks find no such reason; do not archive or delete
+without owner instruction.
+
+Theory reference: Behrmann et al., Invertible Residual Networks, ICML 2019,
+https://arxiv.org/abs/1811.00995 . The theorem motivates the task; the paper does not
+study HuberMul. Euclidean projection's nonexpansiveness follows from its variational
+inequality: ||Pz-Pw||^2 <= <Pz-Pw,z-w>. No full-network bound is inferred from a
+scalar bound; here the complete residual branch and its scaling are specified.

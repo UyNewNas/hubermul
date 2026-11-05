@@ -70,3 +70,22 @@ check the actual workflow status rather than inferring it from this README.
 
 Read [operator contract and derivations](docs/operator_spec.md) and
 [experimental hypotheses and stopping rules](docs/experiment_hypothesis.md).
+
+## Narrow follow-up: contractive inversion
+
+No-training, paired comparison against an equally certified **Euclidean projection
+product**, not just unconstrained multiplication. Both protected controls retain
+exact multiplication on the declared legal domain. See the frozen protocol in
+`docs/experiment_hypothesis.md`.
+
+```bash
+python -m experiments.contractive --config experiments/configs/contractive.toml --output runs/contractive-001
+# Reduced pipeline check, with adjusted settings saved to config.json:
+python -m experiments.contractive --config experiments/configs/contractive.toml --output runs/contractive-smoke --smoke
+```
+
+`trials.csv` preserves paired inputs, targets, starts, recovered states, iterations
+and failures (including convergence to a wrong preimage). `boundary.csv` records
+one-sided derivative diagnostics. `costs.csv` includes repeated, one-thread CPU
+forward and forward+backward measurements and raw timing blocks. None of these
+constitute a real-application benchmark, floating-point proof, or novelty claim.

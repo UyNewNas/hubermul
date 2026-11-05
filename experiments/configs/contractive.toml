@@ -1,0 +1,16 @@
+# Frozen task-matching sweep, no training or parameter selection.
+radius = 1.0
+contractions = [0.5, 0.8, 0.95]
+directions = [[1.0, 0.0], [1.0, 1.0], [1.0, -1.0]]
+seeds = [101, 202, 303]
+random_points = 128
+starts = ["output", "zero", "far_pp", "far_mm", "far_pm"]
+start_scale = 10.0
+error_tolerance = 1e-10
+max_iterations = 2000
+divergence = 1e100
+boundary_offsets = [0.01, 0.0001, 0.000001]
+benchmark = true
+benchmark_sizes = [1, 1024, 65536]
+benchmark_min_time = 0.05
+benchmark_repeats = 3
