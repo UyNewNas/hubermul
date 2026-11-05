@@ -1,0 +1,22 @@
+# Exploratory only. Exactly two candidate fits per method/seed/task.
+seeds = [0, 1, 2]
+tasks = ["corrupted_observation", "legitimate_large", "arithmetic"]
+methods = ["mul", "hubermul", "clipped_mul", "normalized_mul", "grad_clip", "huber_loss"]
+steps = 100
+eval_every = 10
+train_size = 128
+validation_size = 128
+test_size = 256
+contamination = 0.1
+outlier_scale = 6.0
+extrapolation_scale = 3.0
+projection_bound = 2.0
+success_threshold = 0.05
+
+[[candidates]]
+learning_rate = 0.01
+parameter = 1.0
+
+[[candidates]]
+learning_rate = 0.03
+parameter = 2.0
